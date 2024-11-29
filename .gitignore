@@ -1,6 +1,7 @@
 # Ignore .NET build results
 bin/
 obj/
+Properties/
 
 # Ignore user-specific files
 .vscode/
@@ -34,3 +35,6 @@ ehthumbs.db
 
 # Ignore secrets
 secrets.json
+
+# Ignore Pasta de Migração
+Migrations/
