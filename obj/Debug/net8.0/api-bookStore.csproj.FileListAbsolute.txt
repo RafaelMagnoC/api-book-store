@@ -1,9 +1,5 @@
-C:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\obj\Debug\net8.0\api-bookStore.csproj.AssemblyReference.cache
-C:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\obj\Debug\net8.0\api-bookStore.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\obj\Debug\net8.0\api-bookStore.csproj.CoreCompileInputs.cache
-C:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\obj\Debug\net8.0\api-bookStore.MvcApplicationPartsAssemblyInfo.cs
-C:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\obj\Debug\net8.0\api-bookStore.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\obj\Debug\net8.0\api-bookStore.sourcelink.json
+C:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\bin\Debug\net8.0\api-bookstore-test\obj\api-bookstore-test.csproj.nuget.dgspec.json
+C:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\bin\Debug\net8.0\api-bookstore-test\obj\project.assets.json
 C:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\bin\Debug\net8.0\appsettings.Development.json
 C:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\bin\Debug\net8.0\appsettings.json
 C:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\bin\Debug\net8.0\api-bookStore.exe
@@ -139,6 +135,12 @@ C:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\bin\Debug\net8.0\runti
 C:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
 C:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+C:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\obj\Debug\net8.0\api-bookStore.csproj.AssemblyReference.cache
+C:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\obj\Debug\net8.0\api-bookStore.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\obj\Debug\net8.0\api-bookStore.csproj.CoreCompileInputs.cache
+C:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\obj\Debug\net8.0\api-bookStore.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\obj\Debug\net8.0\api-bookStore.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\obj\Debug\net8.0\api-bookStore.sourcelink.json
 C:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\obj\Debug\net8.0\staticwebassets.development.json
 C:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\obj\Debug\net8.0\staticwebassets\msbuild.api-bookStore.Microsoft.AspNetCore.StaticWebAssets.props
@@ -154,8 +156,6 @@ C:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\obj\Debug\net8.0\api-b
 C:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\obj\Debug\net8.0\api-bookStore.pdb
 C:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\obj\Debug\net8.0\api-bookStore.genruntimeconfig.cache
 C:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\obj\Debug\net8.0\ref\api-bookStore.dll
-C:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\bin\Debug\net8.0\api-bookstore-test\obj\api-bookstore-test.csproj.nuget.dgspec.json
-C:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\bin\Debug\net8.0\api-bookstore-test\obj\project.assets.json
 C:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\bin\Debug\net8.0\api-bookstore-test\bin\Debug\net8.0\api-bookstore-test.deps.json
 C:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\bin\Debug\net8.0\api-bookstore-test\bin\Debug\net8.0\api-bookstore-test.runtimeconfig.json
 C:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\bin\Debug\net8.0\api-bookstore-test\bin\Debug\net8.0\api-bookstore-test\obj\api-bookstore-test.csproj.nuget.dgspec.json
@@ -165,12 +165,3 @@ C:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\bin\Debug\net8.0\api-b
 C:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\bin\Debug\net8.0\api-bookstore-test\bin\Debug\net8.0\appsettings.Development.json
 C:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\bin\Debug\net8.0\api-bookstore-test\bin\Debug\net8.0\appsettings.json
 C:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\bin\Debug\net8.0\api-bookstore-test\obj\Debug\net8.0\api-bookstore-test.sourcelink.json
-c:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\bin\Debug\net8.0\api-bookstore-test\bin\Debug\net8.0\api-bookstore-test\bin\Debug\net8.0\api-bookstore-test.deps.json
-c:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\bin\Debug\net8.0\api-bookstore-test\bin\Debug\net8.0\api-bookstore-test\bin\Debug\net8.0\api-bookstore-test.runtimeconfig.json
-c:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\bin\Debug\net8.0\api-bookstore-test\bin\Debug\net8.0\api-bookstore-test\bin\Debug\net8.0\api-bookstore-test\obj\api-bookstore-test.csproj.nuget.dgspec.json
-c:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\bin\Debug\net8.0\api-bookstore-test\bin\Debug\net8.0\api-bookstore-test\bin\Debug\net8.0\api-bookstore-test\obj\project.assets.json
-c:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\bin\Debug\net8.0\api-bookstore-test\bin\Debug\net8.0\api-bookstore-test\bin\Debug\net8.0\api-bookStore.deps.json
-c:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\bin\Debug\net8.0\api-bookstore-test\bin\Debug\net8.0\api-bookstore-test\bin\Debug\net8.0\api-bookStore.runtimeconfig.json
-c:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\bin\Debug\net8.0\api-bookstore-test\bin\Debug\net8.0\api-bookstore-test\bin\Debug\net8.0\appsettings.Development.json
-c:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\bin\Debug\net8.0\api-bookstore-test\bin\Debug\net8.0\api-bookstore-test\bin\Debug\net8.0\appsettings.json
-c:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\bin\Debug\net8.0\api-bookstore-test\bin\Debug\net8.0\api-bookstore-test\obj\Debug\net8.0\api-bookstore-test.sourcelink.json
