@@ -1,5 +1,3 @@
-C:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\bin\Debug\net8.0\api-bookstore-test\obj\api-bookstore-test.csproj.nuget.dgspec.json
-C:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\bin\Debug\net8.0\api-bookstore-test\obj\project.assets.json
 C:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\bin\Debug\net8.0\appsettings.Development.json
 C:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\bin\Debug\net8.0\appsettings.json
 C:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\bin\Debug\net8.0\api-bookStore.exe
@@ -156,12 +154,3 @@ C:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\obj\Debug\net8.0\api-b
 C:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\obj\Debug\net8.0\api-bookStore.pdb
 C:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\obj\Debug\net8.0\api-bookStore.genruntimeconfig.cache
 C:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\obj\Debug\net8.0\ref\api-bookStore.dll
-C:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\bin\Debug\net8.0\api-bookstore-test\bin\Debug\net8.0\api-bookstore-test.deps.json
-C:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\bin\Debug\net8.0\api-bookstore-test\bin\Debug\net8.0\api-bookstore-test.runtimeconfig.json
-C:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\bin\Debug\net8.0\api-bookstore-test\bin\Debug\net8.0\api-bookstore-test\obj\api-bookstore-test.csproj.nuget.dgspec.json
-C:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\bin\Debug\net8.0\api-bookstore-test\bin\Debug\net8.0\api-bookstore-test\obj\project.assets.json
-C:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\bin\Debug\net8.0\api-bookstore-test\bin\Debug\net8.0\api-bookStore.deps.json
-C:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\bin\Debug\net8.0\api-bookstore-test\bin\Debug\net8.0\api-bookStore.runtimeconfig.json
-C:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\bin\Debug\net8.0\api-bookstore-test\bin\Debug\net8.0\appsettings.Development.json
-C:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\bin\Debug\net8.0\api-bookstore-test\bin\Debug\net8.0\appsettings.json
-C:\Users\Rafael Magnifico\Desktop\bookStore\api-bookStore\bin\Debug\net8.0\api-bookstore-test\obj\Debug\net8.0\api-bookstore-test.sourcelink.json

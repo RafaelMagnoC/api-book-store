@@ -1,7 +1,6 @@
 # Ignore .NET build results
 bin/
 obj/
-Properties/
 
 # Ignore user-specific files
 .vscode/

@@ -31,7 +31,9 @@ namespace api_bookStore.App.Config
         /// <exception cref="Exception">Lançada se a chave secreta do JWT não for encontrada nas configurações.</exception>
         public static IServiceCollection AddJwtConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
-            byte[] key = Encoding.ASCII.GetBytes(configuration["Jwt:Key"] ?? throw new Exception("A chave secreta do token não foi encontrada. Verificar variável de ambiente"));
+            string secretKey = configuration["Jwt:Key"] ?? throw new Exception("A chave secreta do token não foi encontrada. Verificar variável de ambiente");
+
+            byte[] key = Encoding.ASCII.GetBytes(secretKey);
 
             services.AddAuthentication(jwt =>
             {
