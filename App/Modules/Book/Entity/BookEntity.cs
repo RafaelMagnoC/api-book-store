@@ -15,7 +15,7 @@ namespace api_bookStore.App.Modules.Book.Entity
         [Column("book_id")]
         public int Id { get; set; }
         [Column("book_title")]
-        public string? Title { get; set; }
+        public string Title { get; set; } = null!;
         [Column("book_publicationDate", TypeName = "Date")]
         public DateOnly PublicationDate { get; set; }
         [Column("book_price")]
@@ -34,13 +34,13 @@ namespace api_bookStore.App.Modules.Book.Entity
         }
         [Column("book_authorId")]
         public int AuthorId { get; set; }
-        public AuthorEntity? Author { get; set; }
+        public AuthorEntity Author { get; set; } = null!;
         [Column("book_categoryId")]
         public int CategoryId { get; set; }
-        public required CategoryEntity Category { get; set; }
+        public CategoryEntity Category { get; set; } = null!;
         [Column("book_inventoryId")]
         public int InventoryId { get; set; }
-        public required InventoryEntity Quantity { get; set; }
+        public InventoryEntity Quantity { get; set; } = null!;
         public IList<SaleXBookEntity> SaleXBooks { get; set; } = [];
 
     }

@@ -17,7 +17,10 @@ namespace api_bookStore.App.Modules.Sale.Entity
         [Key]
         [Column("sale_id")]
         public int Id { get; set; }
+
+        [Column("sale_created_at")]
         public DateTime CreatedAt { get; set; } = DateTime.Now;
+        [Column("sale_updated_at")]
         public DateTime UpdatedAt { get; set; }
 
         [Column("sale_status")]

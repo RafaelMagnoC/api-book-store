@@ -19,7 +19,7 @@ namespace api_bookStore.App.Modules.Author.ViewModel
 
         [Required]
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        public required CountriesEnum Country { get; set; }
+        public CountriesEnum Country { get; set; }
     }
 
 }

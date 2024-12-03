@@ -9,10 +9,10 @@ namespace api_bookStore.App.Modules.Book.DTO
     public class BookDTO
     {
         public int Id { get; set; }
-        public string? Title { get; set; }
+        public string Title { get; set; } = null!;
         public DateOnly PublicationDate { get; set; }
         public double Price { get; set; }
         public int Quantity { get; set; }
-        public required string Category { get; set; }
+        public string Category { get; set; } = null!;
     }
 }

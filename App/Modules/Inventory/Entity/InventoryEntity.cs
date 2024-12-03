@@ -19,11 +19,12 @@ namespace api_bookStore.App.Modules.Inventory.Entity
         public double Value { get; set; }
         [Column("inventory_quantity")]
         public int Quantity { get; set; }
+
         [Column("inventory_created_at")]
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         [Column("inventory_updated_at")]
         public DateTime UpdatedAt { get; set; }
-        public BookEntity? Book { get; set; }
+        public BookEntity Book { get; set; } = null!;
         public InventoryEntity() { }
         public InventoryEntity(InventoryViewModelCreate inventoryViewModelCreate)
         {

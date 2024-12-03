@@ -12,16 +12,16 @@ namespace api_bookStore.App.Modules.User.ViewModel
     {
         [Required]
         [StringLength(60)]
-        public required string Name { get; set; }
+        public string Name { get; set; } = null!;
 
         [Required]
         [StringLength(60)]
         [EmailAddress]
-        public required string Email { get; set; }
+        public string Email { get; set; } = null!;
 
         [Required]
         [StringLength(20)]
-        public required string Password { get; set; }
+        public string Password { get; set; } = null!;
 
         [Required]
         [JsonConverter(typeof(JsonStringEnumConverter))]

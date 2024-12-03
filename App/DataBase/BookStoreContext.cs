@@ -24,35 +24,35 @@ namespace api_bookStore.App.DataBase
         /// <summary>
         /// Conjunto de entidades de usuários.
         /// </summary>
-        public required DbSet<UserEntity> User { get; set; }
+        public DbSet<UserEntity> User { get; set; } = null!;
         /// <summary>
         /// Conjunto de entidades de autenticação.
         /// </summary>
-        public required DbSet<AuthEntity> Auth { get; set; }
+        public DbSet<AuthEntity> Auth { get; set; } = null!;
         /// <summary>
         /// Conjunto de entidades de autores.
         /// </summary>
-        public required DbSet<AuthorEntity> Author { get; set; }
+        public DbSet<AuthorEntity> Author { get; set; } = null!;
         /// <summary>
         /// Conjunto de entidades de categorias de livros.
         /// </summary>
-        public required DbSet<CategoryEntity> Category { get; set; }
+        public DbSet<CategoryEntity> Category { get; set; } = null!;
         /// <summary>
         /// Conjunto de entidades de inventário.
         /// </summary>
-        public required DbSet<InventoryEntity> Inventory { get; set; }
+        public DbSet<InventoryEntity> Inventory { get; set; } = null!;
         /// <summary>
         /// Conjunto de entidades de livros.
         /// </summary>
-        public required DbSet<BookEntity> Book { get; set; }
+        public DbSet<BookEntity> Book { get; set; } = null!;
         /// <summary>
         /// Conjunto de entidades de vendas.
         /// </summary>
-        public required DbSet<SaleEntity> Sale { get; set; }
+        public DbSet<SaleEntity> Sale { get; set; } = null!;
         /// <summary>
         /// Conjunto de entidades que representam a relação entre vendas e livros.
         /// </summary>
-        public required DbSet<SaleXBookEntity> SaleXBook { get; set; }
+        public DbSet<SaleXBookEntity> SaleXBook { get; set; } = null!;
         /// <summary>
         /// Configurações adicionais para o modelo de dados, incluindo a criação de índices e relacionamentos.
         /// </summary>

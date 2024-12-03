@@ -9,10 +9,10 @@ namespace api_bookStore.App.Modules.User.DTO
 {
     public class UserDTO
     {
-        public required string Id { get; set; }
-        public required string Name { get; set; }
-        public required string Email { get; set; }
+        public string Id { get; set; } = null!;
+        public string Name { get; set; } = null!;
+        public string Email { get; set; } = null!;
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        public required RolesEnum Role { get; set; }
+        public RolesEnum Role { get; set; }
     }
 }

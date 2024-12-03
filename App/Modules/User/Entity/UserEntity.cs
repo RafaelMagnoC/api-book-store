@@ -16,13 +16,13 @@ namespace api_bookStore.App.Modules.User.Entity
 
         [Column("user_name", TypeName = "varchar(60)")]
         [Required]
-        public string? Name { get; set; }
+        public string Name { get; set; } = null!;
         [Column("user_email", TypeName = "varchar(60)")]
         [Required]
-        public string? Email { get; set; }
+        public string Email { get; set; } = null!;
         [Column("user_password", TypeName = "varchar(255)")]
         [Required]
-        public string? Password { get; set; }
+        public string Password { get; set; } = null!;
 
         [Column("user_role")]
         [Required]

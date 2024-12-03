@@ -18,7 +18,7 @@ namespace api_bookStore.App.Modules.Author.Entity
         [Column("author_id")]
         public int Id { get; set; }
         [Column("author_name")]
-        public string? Name { get; set; }
+        public string Name { get; set; } = null!;
         [Column("author_birthday", TypeName = "Date")]
         public DateOnly BirthDay { get; set; }
         [Column("author_country")]

@@ -22,11 +22,11 @@ namespace api_bookStore.App.Modules.Sale.Entity
 
         [Column("sale_id")]
         public int SaleId { get; set; }
-        public SaleEntity? Sale { get; set; }
+        public SaleEntity Sale { get; set; } = null!;
 
         [Column("book_id")]
         public int BookId { get; set; }
-        public BookEntity? Book { get; set; }
+        public BookEntity Book { get; set; } = null!;
         public SaleXBookEntity() { }
         public SaleXBookEntity(int bookId, int saleId)
         {
