@@ -16,6 +16,8 @@ using api_bookStore.App.Modules.Sale.Interface;
 using api_bookStore.App.Modules.Sale.Repository;
 using api_bookStore.App.Modules.User.Interface;
 using api_bookStore.App.Modules.User.Repository;
+using api_bookStore.App.Modules.User.Service;
+using api_bookStore.App.Services.Jwt;
 
 namespace api_bookStore.App.Config
 {
@@ -51,6 +53,8 @@ namespace api_bookStore.App.Config
             services.AddTransient<IInventoryRepository, InventoryRepository>();
             services.AddTransient<IBookRepository, BookRepository>();
             services.AddTransient<ISaleRepository, SaleRepository>();
+            services.AddTransient<IPasswordServiceHash, PasswordServiceHash>();
+            services.AddTransient<IJwtTokenService, JwtTokenService>();
             return services;
         }
     }

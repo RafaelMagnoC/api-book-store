@@ -54,6 +54,7 @@ Entity: Representação das entidades do banco de dados.
 Interface: Definição de contrato para os repositórios.
 Repository: Implementação dos repositórios para acesso aos dados.
 ViewModel: Modelos usados na interação com o usuário, como criação e atualização de registros.
+
 Exemplos de módulos:
 
 Auth: Responsável pela autenticação.
@@ -67,11 +68,13 @@ Services: Agrupa serviços de terceiros, como AutoMapper, JWT e Swagger.
 AutoMapper: Configura o mapeamento de objetos.
 Jwt: Implementa a geração e validação de tokens JWT.
 Swagger: Configura o Swagger para gerar a documentação da API.
+
 2. Pasta Migrations
 Contém arquivos relacionados ao gerenciamento de migrações do Entity Framework Core, que são responsáveis por criar e atualizar o esquema do banco de dados.
 
 20241129193900_First.cs: Exemplo de uma migração.
 BookStoreContextModelSnapshot.cs: Snapshot do estado atual do modelo do banco de dados.
+
 3. Pasta bin
 Contém os arquivos gerados durante a compilação do projeto, como assemblies, arquivos de configuração e dependências do runtime.
 
@@ -83,7 +86,6 @@ Contém arquivos de configuração do projeto, como launchSettings.json, que def
 
 Map:
 
-C:.
 │   api-bookStore.csproj
 │   api-bookStore.http
 │   api-bookStore.sln

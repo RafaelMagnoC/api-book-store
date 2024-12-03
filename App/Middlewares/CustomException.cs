@@ -6,21 +6,15 @@ namespace api_BookStore.App.Middlewares
     /// Middleware personalizado para interceptar e tratar exceções específicas durante a execução da requisição.
     /// Essa classe captura exceções definidas, registra os erros e retorna uma resposta JSON apropriada com o código de status HTTP correspondente.
     /// </summary>
-    public class CustomExceptionMiddleware
+    /// <remarks>
+    /// Inicializa uma nova instância do middleware de exceções personalizadas.
+    /// </remarks>
+    /// <param name="next">O próximo delegado de requisição.</param>
+    /// <param name="logger">O logger usado para registrar os erros.</param>
+    public class CustomExceptionMiddleware(RequestDelegate next, ILogger<CustomExceptionMiddleware> logger)
     {
-        private readonly RequestDelegate _next;
-        private readonly ILogger<CustomExceptionMiddleware> _logger;
-
-        /// <summary>
-        /// Inicializa uma nova instância do middleware de exceções personalizadas.
-        /// </summary>
-        /// <param name="next">O próximo delegado de requisição.</param>
-        /// <param name="logger">O logger usado para registrar os erros.</param>
-        public CustomExceptionMiddleware(RequestDelegate next, ILogger<CustomExceptionMiddleware> logger)
-        {
-            _next = next ?? throw new ArgumentNullException(nameof(next));
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-        }
+        private readonly RequestDelegate _next = next ?? throw new ArgumentNullException(nameof(next));
+        private readonly ILogger<CustomExceptionMiddleware> _logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
         /// <summary>
         /// Intercepta as requisições e captura exceções específicas, retornando uma resposta adequada para cada tipo de erro.

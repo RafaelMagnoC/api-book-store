@@ -11,11 +11,12 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace api_bookStore.App.Modules.User.Repository
 {
-    public class UserRepository(BookStoreContext bookStoreContext, IMapper mapper) : IUserRepository
+    public class UserRepository(BookStoreContext bookStoreContext, IMapper mapper, IPasswordServiceHash passwordServiceHash) : IUserRepository
     {
 
         private readonly BookStoreContext _bookStoreContext = bookStoreContext;
         private readonly IMapper _mapper = mapper;
+        private readonly IPasswordServiceHash _passwordServiceHash = passwordServiceHash;
 
         /// <summary>
         /// Adiciona um novo usuário ao sistema.
@@ -27,7 +28,7 @@ namespace api_bookStore.App.Modules.User.Repository
         {
             try
             {
-                userViewModelCreate.Password = PasswordServiceHash.HashPassword(userViewModelCreate.Password);
+                userViewModelCreate.Password = _passwordServiceHash.HashPassword(userViewModelCreate.Password);
                 EntityEntry<UserEntity> userCreated = await _bookStoreContext.User.AddAsync(new UserEntity(userViewModelCreate));
                 int userSaved = await _bookStoreContext.SaveChangesAsync();
 
@@ -55,7 +56,7 @@ namespace api_bookStore.App.Modules.User.Repository
                 UserEntity userExists = await _bookStoreContext.User.FirstOrDefaultAsync(u => u.Id.ToString() == userId) ?? throw new NotFound($"nenhum usuário com o id: {userId} encontrado.");
                 if (userViewModelUpdate.Password != null)
                 {
-                    userViewModelUpdate.Password = PasswordServiceHash.HashPassword(userViewModelUpdate.Password);
+                    userViewModelUpdate.Password = _passwordServiceHash.HashPassword(userViewModelUpdate.Password);
                 }
                 _bookStoreContext.Entry(userExists).CurrentValues.SetValues(userViewModelUpdate);
                 userExists.UpdatedAt = DateTime.Now;
@@ -110,6 +111,27 @@ namespace api_bookStore.App.Modules.User.Repository
                 UserEntity userExists = await _bookStoreContext.User.AsNoTracking().FirstOrDefaultAsync(u => u.Id.ToString() == userId) ?? throw new NotFound($"nenhum usuário com o id: {userId} encontrado.");
 
                 return _mapper.Map<UserDTO>(userExists);
+            }
+            catch (Exception exception)
+            {
+                throw new Exception(exception.ToString());
+            }
+
+        }
+
+        /// <summary>
+        /// Busca um usuário no sistema pelo seu email.
+        /// </summary>
+        /// <param name="email">O id do usuário pesquisado.</param>
+        /// <returns>O usuário encontrado.</returns>
+        /// <exception cref="Exception">Lançado quando ocorre um erro interno de servidor.</exception>
+        public async Task<UserEntity> UserByEmail(string email)
+        {
+            try
+            {
+                UserEntity userExists = await _bookStoreContext.User.AsNoTracking().FirstOrDefaultAsync(u => u.Email == email) ?? throw new NotFound($"nenhum usuário com o e-mail: {email} encontrado.");
+
+                return userExists;
             }
             catch (Exception exception)
             {

@@ -6,6 +6,7 @@ using api_bookStore.App.DataBase;
 using api_bookStore.App.Modules.Auth.Interface;
 using api_bookStore.App.Modules.Auth.ViewModel;
 using api_bookStore.App.Modules.User.Entity;
+using api_bookStore.App.Modules.User.Interface;
 using api_bookStore.App.Modules.User.Service;
 using api_bookStore.App.Services.Jwt;
 using api_BookStore.App.Exceptions;
@@ -17,21 +18,20 @@ namespace api_bookStore.App.Modules.Auth.Repository
     /// <summary>
     /// Repositório responsável pelas operações de autenticação de usuários, como login e verificação de credenciais.
     /// </summary>
-    public class AuthRepository : IAuthRepository
+    /// <remarks>
+    /// Inicializa uma nova instância do repositório de autenticação.
+    /// </remarks>
+    /// <param name="userRepository">O repositorio de usuários</param>
+    /// <param name="configuration">Configurações da aplicação, como chaves de JWT.</param>
+    /// <param name="passwordServiceHash">O Recurso de math para senhas criptografadas.</param>
+    /// <param name="jwtTokenService">O Recurso de geração de tokens Jwt</param>
+    public class AuthRepository(IUserRepository userRepository, IConfiguration configuration, IPasswordServiceHash passwordServiceHash, IJwtTokenService jwtTokenService) : IAuthRepository
     {
-        private readonly BookStoreContext _bookStoreContext;
-        private readonly IConfiguration _configuration;
+        private readonly IUserRepository _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
+        private readonly IConfiguration _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+        private readonly IPasswordServiceHash _passwordServiceHash = passwordServiceHash ?? throw new ArgumentNullException(nameof(passwordServiceHash));
+        private readonly IJwtTokenService _jwtTokenService = jwtTokenService ?? throw new ArgumentNullException(nameof(jwtTokenService));
 
-        /// <summary>
-        /// Inicializa uma nova instância do repositório de autenticação.
-        /// </summary>
-        /// <param name="bookStoreContext">O contexto do banco de dados para acessar as entidades do usuário.</param>
-        /// <param name="configuration">Configurações da aplicação, como chaves de JWT.</param>
-        public AuthRepository(BookStoreContext bookStoreContext, IConfiguration configuration)
-        {
-            _bookStoreContext = bookStoreContext ?? throw new ArgumentNullException(nameof(bookStoreContext));
-            _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
-        }
 
         /// <summary>
         /// Realiza o login de um usuário, verificando as credenciais e gerando um token JWT.
@@ -44,16 +44,15 @@ namespace api_bookStore.App.Modules.Auth.Repository
         {
             try
             {
-                UserEntity user = await _bookStoreContext.User
-                    .FirstOrDefaultAsync(u => u.Email == authViewModel.Email)
-                    ?? throw new NotFound($"Nenhum usuário com o e-mail: {authViewModel.Email} encontrado.");
+                (string email, string password) = authViewModel;
 
-                string userPassword = user.Password
-                    ?? throw new InvalidCredential("Credenciais inválidas.");
+                UserEntity user = await _userRepository.UserByEmail(email);
 
-                if (PasswordServiceHash.VerifyPassword(userPassword, authViewModel.Password))
+                string userPassword = user.Password ?? string.Empty;
+
+                if (_passwordServiceHash.VerifyPassword(userPassword, authViewModel.Password))
                 {
-                    return JwtTokenService.GenerateJwtToken(_configuration, user.Id.ToString(), user.Role.ToString());
+                    return _jwtTokenService.GenerateJwtToken(user.Id.ToString(), user.Role.ToString());
                 }
                 else
                 {

@@ -436,13 +436,25 @@
             <summary>
             Repositório responsável pelas operações de autenticação de usuários, como login e verificação de credenciais.
             </summary>
-        </member>
-        <member name="M:api_bookStore.App.Modules.Auth.Repository.AuthRepository.#ctor(api_bookStore.App.DataBase.BookStoreContext,Microsoft.Extensions.Configuration.IConfiguration)">
-            <summary>
+            <remarks>
             Inicializa uma nova instância do repositório de autenticação.
-            </summary>
-            <param name="bookStoreContext">O contexto do banco de dados para acessar as entidades do usuário.</param>
+            </remarks>
+            <param name="userRepository">O repositorio de usuários</param>
             <param name="configuration">Configurações da aplicação, como chaves de JWT.</param>
+            <param name="passwordServiceHash">O Recurso de math para senhas criptografadas.</param>
+            <param name="jwtTokenService">O Recurso de geração de tokens Jwt</param>
+        </member>
+        <member name="M:api_bookStore.App.Modules.Auth.Repository.AuthRepository.#ctor(api_bookStore.App.Modules.User.Interface.IUserRepository,Microsoft.Extensions.Configuration.IConfiguration,api_bookStore.App.Modules.User.Service.IPasswordServiceHash,api_bookStore.App.Services.Jwt.IJwtTokenService)">
+            <summary>
+            Repositório responsável pelas operações de autenticação de usuários, como login e verificação de credenciais.
+            </summary>
+            <remarks>
+            Inicializa uma nova instância do repositório de autenticação.
+            </remarks>
+            <param name="userRepository">O repositorio de usuários</param>
+            <param name="configuration">Configurações da aplicação, como chaves de JWT.</param>
+            <param name="passwordServiceHash">O Recurso de math para senhas criptografadas.</param>
+            <param name="jwtTokenService">O Recurso de geração de tokens Jwt</param>
         </member>
         <member name="M:api_bookStore.App.Modules.Auth.Repository.AuthRepository.SigIn(api_bookStore.App.Modules.Auth.ViewModel.AuthViewModel)">
             <summary>
@@ -1119,6 +1131,14 @@
             <returns>O usuário encontrado.</returns>
             <exception cref="T:System.Exception">Lançado quando ocorre um erro interno de servidor.</exception>
         </member>
+        <member name="M:api_bookStore.App.Modules.User.Repository.UserRepository.UserByEmail(System.String)">
+            <summary>
+            Busca um usuário no sistema pelo seu email.
+            </summary>
+            <param name="email">O id do usuário pesquisado.</param>
+            <returns>O usuário encontrado.</returns>
+            <exception cref="T:System.Exception">Lançado quando ocorre um erro interno de servidor.</exception>
+        </member>
         <member name="M:api_bookStore.App.Modules.User.Repository.UserRepository.Users">
             <summary>
             Busca todos usuários cadastrados no sistema.
@@ -1140,12 +1160,20 @@
             <summary>
             Serviço para geração de tokens JWT.
             </summary>
+            
+            <param name="configuration">Configurações da aplicação, incluindo a chave secreta para assinatura do token.</param>
         </member>
-        <member name="M:api_bookStore.App.Services.Jwt.JwtTokenService.GenerateJwtToken(Microsoft.Extensions.Configuration.IConfiguration,System.String,System.String)">
+        <member name="M:api_bookStore.App.Services.Jwt.JwtTokenService.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Serviço para geração de tokens JWT.
+            </summary>
+            
+            <param name="configuration">Configurações da aplicação, incluindo a chave secreta para assinatura do token.</param>
+        </member>
+        <member name="M:api_bookStore.App.Services.Jwt.JwtTokenService.GenerateJwtToken(System.String,System.String)">
             <summary>
             Gera um token JWT com base nas credenciais do usuário e configuração fornecida.
             </summary>
-            <param name="configuration">Configurações da aplicação, incluindo a chave secreta para assinatura do token.</param>
             <param name="userId">ID do usuário que será incluído no token como claim.</param>
             <param name="role">Função ou papel do usuário (como "Admin", "User", etc.) que será incluída no token como claim.</param>
             <returns>Um token JWT assinado.</returns>
@@ -1469,11 +1497,20 @@
             Middleware personalizado para interceptar e tratar exceções específicas durante a execução da requisição.
             Essa classe captura exceções definidas, registra os erros e retorna uma resposta JSON apropriada com o código de status HTTP correspondente.
             </summary>
+            <remarks>
+            Inicializa uma nova instância do middleware de exceções personalizadas.
+            </remarks>
+            <param name="next">O próximo delegado de requisição.</param>
+            <param name="logger">O logger usado para registrar os erros.</param>
         </member>
         <member name="M:api_BookStore.App.Middlewares.CustomExceptionMiddleware.#ctor(Microsoft.AspNetCore.Http.RequestDelegate,Microsoft.Extensions.Logging.ILogger{api_BookStore.App.Middlewares.CustomExceptionMiddleware})">
             <summary>
-            Inicializa uma nova instância do middleware de exceções personalizadas.
+            Middleware personalizado para interceptar e tratar exceções específicas durante a execução da requisição.
+            Essa classe captura exceções definidas, registra os erros e retorna uma resposta JSON apropriada com o código de status HTTP correspondente.
             </summary>
+            <remarks>
+            Inicializa uma nova instância do middleware de exceções personalizadas.
+            </remarks>
             <param name="next">O próximo delegado de requisição.</param>
             <param name="logger">O logger usado para registrar os erros.</param>
         </member>

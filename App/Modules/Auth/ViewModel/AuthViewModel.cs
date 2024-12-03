@@ -13,5 +13,11 @@ namespace api_bookStore.App.Modules.Auth.ViewModel
         public string Email { get; set; } = email;
         [Required]
         public string Password { get; set; } = password;
+
+        public void Deconstruct(out string email, out string password)
+        {
+            email = Email;
+            password = Password;
+        }
     }
 }

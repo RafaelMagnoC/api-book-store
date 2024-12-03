@@ -6,15 +6,16 @@ using Microsoft.AspNetCore.Identity;
 
 namespace api_bookStore.App.Modules.User.Service
 {
-    public static class PasswordServiceHash
+    public class PasswordServiceHash : IPasswordServiceHash
     {
-        private static readonly PasswordHasher<object> _passwordHasher = new();
+        private readonly PasswordHasher<object> _passwordHasher = new();
 
-        public static string HashPassword(string password)
+        public string HashPassword(string password)
         {
             return _passwordHasher.HashPassword(string.Empty, password);
         }
-        public static bool VerifyPassword(string hashedPassword, string providedPassword)
+
+        public bool VerifyPassword(string hashedPassword, string providedPassword)
         {
             var result = _passwordHasher.VerifyHashedPassword(string.Empty, hashedPassword, providedPassword);
             return result == PasswordVerificationResult.Success;

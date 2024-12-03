@@ -12,20 +12,23 @@ namespace api_bookStore.App.Services.Jwt
     /// <summary>
     /// Serviço para geração de tokens JWT.
     /// </summary>
-    public static class JwtTokenService
+    /// 
+    /// <param name="configuration">Configurações da aplicação, incluindo a chave secreta para assinatura do token.</param>
+    public class JwtTokenService(IConfiguration configuration) : IJwtTokenService
     {
+        private readonly IConfiguration _configuration = configuration;
+
         /// <summary>
         /// Gera um token JWT com base nas credenciais do usuário e configuração fornecida.
         /// </summary>
-        /// <param name="configuration">Configurações da aplicação, incluindo a chave secreta para assinatura do token.</param>
         /// <param name="userId">ID do usuário que será incluído no token como claim.</param>
         /// <param name="role">Função ou papel do usuário (como "Admin", "User", etc.) que será incluída no token como claim.</param>
         /// <returns>Um token JWT assinado.</returns>
         /// <exception cref="Exception">Lançado quando a chave secreta não é encontrada nas configurações.</exception>
-        public static string GenerateJwtToken(IConfiguration configuration, string userId, string role)
+        public string GenerateJwtToken(string userId, string role)
         {
 
-            string secretKey = configuration["Jwt:Key"] ?? throw new Exception("A chave secreta do token não foi encontrada. Verificar variável de ambiente");
+            string secretKey = _configuration["Jwt:Key"] ?? throw new Exception("A chave secreta do token não foi encontrada. Verificar variável de ambiente");
 
             byte[] key = Encoding.ASCII.GetBytes(secretKey);
 

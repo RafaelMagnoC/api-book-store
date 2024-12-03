@@ -5,6 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>api_bookStore</RootNamespace>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <NoWarn>$(NoWarn);1591</NoWarn>
   </PropertyGroup>
   <ItemGroup>
@@ -15,9 +16,12 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.11"/>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.11"/>
     <PackageReference Include="AutoMapper" Version="12.0.1"/>
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1"/>    
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1"/>
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="8.2.0"/>
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.2.0"/>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.11"/>
+    <PackageReference Include="xunit" Version="2.9.2"/>
+    <PackageReference Include="Moq" Version="4.20.72"/>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1"/>
   </ItemGroup>
 </Project>
