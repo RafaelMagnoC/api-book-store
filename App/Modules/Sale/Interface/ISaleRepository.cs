@@ -10,7 +10,7 @@ namespace api_bookStore.App.Modules.Sale.Interface
 {
     public interface ISaleRepository
     {
-        Task<SaleDTO> SaleAdd(List<SaleViewModelCreate> saleViewModelCreate);
+        Task<List<SaleDTO>> SaleAdd(List<SaleViewModelCreate> saleViewModelCreate);
         Task<List<SaleDTO>> Sales();
     }
 }

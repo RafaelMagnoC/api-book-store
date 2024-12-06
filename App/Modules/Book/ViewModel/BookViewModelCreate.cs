@@ -7,7 +7,7 @@ using api_bookStore.App.Modules.Inventory.ViewModel;
 
 namespace api_bookStore.App.Modules.Book.ViewModel
 {
-    public class BookViewModelCreate(string title, DateOnly publicationDate, double price, int quantity, int authorId, int categoryId)
+    public class BookViewModelCreate(string title, DateOnly publicationDate, double price, int authorId, int categoryId, InventoryViewModelCreate inventory)
     {
         [Required]
         public string Title { get; set; } = title;
@@ -19,12 +19,12 @@ namespace api_bookStore.App.Modules.Book.ViewModel
         public double Price { get; set; } = price;
 
         [Required]
-        public int Quantity { get; set; } = quantity;
-
-        [Required]
         public int AuthorId { get; set; } = authorId;
 
         [Required]
         public int CategoryId { get; set; } = categoryId;
+
+        [Required]
+        public InventoryViewModelCreate Inventory { get; set; } = inventory;
     }
 }

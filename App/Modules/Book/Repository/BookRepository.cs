@@ -20,6 +20,13 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
+/*
+* TODO:
+* 1. Criar método de atualizar estoque
+* 2. Criar método de trocar categoria
+* 3. Criar método de trocar autor
+*/
+
 namespace api_bookStore.App.Modules.Book.Repository
 {
     public class BookRepository(BookStoreContext bookStoreContext, IMapper mapper) : IBookRepository
@@ -40,21 +47,33 @@ namespace api_bookStore.App.Modules.Book.Repository
             {
                 AuthorEntity author = await _bookStoreContext.Author.FindAsync(bookViewModelCreate.AuthorId) ?? throw new NotFound($"nenhum author com o id: {bookViewModelCreate.AuthorId} encontrado.");
                 CategoryEntity category = await _bookStoreContext.Category.FindAsync(bookViewModelCreate.CategoryId) ?? throw new NotFound($"nenhuma categoria com o id: {bookViewModelCreate.CategoryId} encontrada.");
-                InventoryEntity inventory = await InventoryAdd(new InventoryViewModelCreate(bookViewModelCreate.Quantity));
 
+                // Criar a entidade Book
                 BookEntity book = new(bookViewModelCreate)
                 {
                     Author = author,
                     AuthorId = author.Id,
                     Category = category,
-                    CategoryId = category.Id,
-                    InventoryId = inventory.Id,
-                    Quantity = inventory
+                    CategoryId = category.Id
                 };
+
+                // Adicionar o livro ao contexto
                 EntityEntry<BookEntity> bookCreated = await _bookStoreContext.Book.AddAsync(book);
+
+                // Criar o inventário e associar ao livro
+                InventoryEntity inventory = new()
+                {
+                    Quantity = bookViewModelCreate.Inventory.Quantity,
+                    Book = book,
+                    BookId = book.Id
+                };
+                await _bookStoreContext.Inventory.AddAsync(inventory);
+
+                inventory.Value = bookViewModelCreate.Inventory.Quantity * bookViewModelCreate.Price;
+
                 int bookSaved = await _bookStoreContext.SaveChangesAsync();
 
-                return bookSaved > 0 ? _mapper.Map<BookDTO>(bookCreated.Entity) : throw new CreateException("um erro ocorreu ao cadastrar o livro");
+                return bookSaved > 0 ? _mapper.Map<BookDTO>(bookCreated.Entity) : throw new CreateException("Um erro ocorreu ao cadastrar o livro.");
             }
             catch (Exception exception)
             {
@@ -96,7 +115,7 @@ namespace api_bookStore.App.Modules.Book.Repository
         {
             try
             {
-                BookEntity bookExists = await _bookStoreContext.Book.Include(book => book.Category).FirstOrDefaultAsync(u => u.Id == bookId) ?? throw new NotFound($"nenhum livro com o id: {bookId} encontrado.");
+                BookEntity bookExists = await _bookStoreContext.Book.FirstOrDefaultAsync(u => u.Id == bookId) ?? throw new NotFound($"nenhum livro com o id: {bookId} encontrado.");
 
                 _bookStoreContext.Entry(bookExists).CurrentValues.SetValues(bookViewModelUpdate);
                 bookExists.UpdatedAt = DateTime.Now;
@@ -124,7 +143,11 @@ namespace api_bookStore.App.Modules.Book.Repository
         {
             try
             {
-                BookEntity bookExists = await _bookStoreContext.Book.Include(book => book.Category).FirstOrDefaultAsync(u => u.Id == bookId) ?? throw new NotFound($"nenhum livro com o id: {bookId} encontrado.");
+                BookEntity bookExists = await _bookStoreContext.Book
+                .Include(book => book.Author)
+                .Include(book => book.Category)
+                .Include(book => book.Inventory)
+                .FirstOrDefaultAsync(u => u.Id == bookId) ?? throw new NotFound($"nenhum livro com o id: {bookId} encontrado.");
 
                 _bookStoreContext.Book.Remove(bookExists);
 
@@ -148,7 +171,12 @@ namespace api_bookStore.App.Modules.Book.Repository
         {
             try
             {
-                BookEntity bookExists = await _bookStoreContext.Book.AsNoTracking().Include(book => book.Category).FirstOrDefaultAsync(u => u.Id == bookId) ?? throw new NotFound($"nenhum livro com o id: {bookId} encontrado.");
+                BookEntity bookExists = await _bookStoreContext.Book
+                .AsNoTracking()
+                .Include(book => book.Author)
+                .Include(book => book.Category)
+                .Include(book => book.Inventory)
+                .FirstOrDefaultAsync(u => u.Id == bookId) ?? throw new NotFound($"nenhum livro com o id: {bookId} encontrado.");
 
                 return _mapper.Map<BookDTO>(bookExists);
             }
@@ -173,12 +201,26 @@ namespace api_bookStore.App.Modules.Book.Repository
 
                 if (categoryName != null)
                 {
-                    CategoryEntity category = await _bookStoreContext.Category.FirstOrDefaultAsync(category => category.Name == categoryName) ?? throw new NotFound($"nenhuma categoria com o nome: {categoryName} encontrado.");
-                    books = await _bookStoreContext.Book.AsNoTracking().Include(book => book.Category).Where(category => category.Category.Name == categoryName).ToListAsync();
+                    CategoryEntity category = await _bookStoreContext.Category
+                    .FirstOrDefaultAsync(category => category.Name == categoryName) ?? throw new NotFound($"nenhuma categoria com o nome: {categoryName} encontrado.");
+
+                    books = await _bookStoreContext.Book
+                    .AsNoTracking()
+                    .Include(book => book.Author)
+                    .Include(book => book.Category)
+                    .Include(book => book.Inventory)
+                    .Where(category => category.Category.Name == categoryName)
+                    .ToListAsync();
                     return books.Count > 0 ? _mapper.Map<List<BookDTO>>(books) : [];
                 }
 
-                books = await _bookStoreContext.Book.Include(book => book.Category).AsNoTracking().ToListAsync();
+                books = await _bookStoreContext.Book
+                .AsNoTracking()
+                .Include(book => book.Author)
+                .Include(book => book.Category)
+                .Include(book => book.Inventory)
+                .ToListAsync();
+
                 return books.Count > 0 ? _mapper.Map<List<BookDTO>>(books) : [];
             }
             catch (Exception exception)
@@ -199,13 +241,14 @@ namespace api_bookStore.App.Modules.Book.Repository
         {
             try
             {
-                BookEntity book = await _bookStoreContext.Book
-                    .AsNoTracking()
-                    .Include(book => book.Category)
-                    .FirstOrDefaultAsync(book => book.Title == title)
-                    ?? throw new NotFound($"Nenhum livro com o título: {title} encontrado.");
+                BookEntity bookExists = await _bookStoreContext.Book
+               .AsNoTracking()
+               .Include(book => book.Author)
+               .Include(book => book.Category)
+               .Include(book => book.Inventory)
+               .FirstOrDefaultAsync(book => book.Title == title) ?? throw new NotFound($"nenhum livro com o id: {title} encontrado.");
 
-                return _mapper.Map<BookDTO>(book);
+                return _mapper.Map<BookDTO>(bookExists);
             }
             catch (Exception exception)
             {

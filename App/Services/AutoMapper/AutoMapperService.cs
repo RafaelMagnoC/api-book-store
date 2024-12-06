@@ -27,16 +27,23 @@ namespace api_bookStore.App.Services.AutoMapper
         public AutoMapperService()
         {
             CreateMap<UserEntity, UserDTO>().ReverseMap();
+
             CreateMap<AuthEntity, AuthDTO>();
+
             CreateMap<AuthorEntity, AuthorDTO>().ReverseMap();
+
             CreateMap<CategoryEntity, CategoryDTO>().ReverseMap();
+
             CreateMap<InventoryEntity, InventoryDTO>().ReverseMap();
+
             CreateMap<SaleEntity, SaleDTO>()
-            .ForMember(dest => dest.SaleXBooks, opt => opt.MapFrom(src => src.SaleXBooks.Select(src => src.Book)))
+            .ForMember(dto => dto.BookTitle, entity => entity.MapFrom(property => property.SaleBook.Select(property => property.Book.Title)))
             .ReverseMap();
+
             CreateMap<BookEntity, BookDTO>()
-            .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.Quantity.Quantity))
-            .ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.Category.Name))
+            .ForMember(dto => dto.Quantity, entity => entity.MapFrom(property => property.Inventory.Quantity))
+            .ForMember(dto => dto.Category, entity => entity.MapFrom(property => property.Category.Name))
+            .ForMember(dto => dto.Author, entity => entity.MapFrom(property => property.Author.Name))
             .ReverseMap();
 
         }

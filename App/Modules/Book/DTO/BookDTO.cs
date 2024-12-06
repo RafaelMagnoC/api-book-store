@@ -14,5 +14,6 @@ namespace api_bookStore.App.Modules.Book.DTO
         public double Price { get; set; }
         public int Quantity { get; set; }
         public string Category { get; set; } = null!;
+        public string Author { get; set; } = null!;
     }
 }

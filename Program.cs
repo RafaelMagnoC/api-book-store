@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using api_bookStore.App.Config;
 using api_BookStore.App.Middlewares;
 
@@ -10,7 +11,7 @@ builder.Services.AddDatabaseConfiguration(builder.Configuration);
 builder.Services.AddCorsConfiguration();
 builder.Services.AddJwtConfiguration(builder.Configuration);
 builder.Services.AddAuthorization();
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(option => option.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 WebApplication app = builder.Build();
 

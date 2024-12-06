@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using api_bookStore.App.infrastructure.mapping;
 using api_bookStore.App.Modules.Auth.Entitiy;
 using api_bookStore.App.Modules.Author.Entity;
 using api_bookStore.App.Modules.Book.Entity;
@@ -52,7 +53,7 @@ namespace api_bookStore.App.DataBase
         /// <summary>
         /// Conjunto de entidades que representam a relação entre vendas e livros.
         /// </summary>
-        public DbSet<SaleXBookEntity> SaleXBook { get; set; } = null!;
+        public DbSet<SaleBookEntity> SaleBook { get; set; } = null!;
         /// <summary>
         /// Configurações adicionais para o modelo de dados, incluindo a criação de índices e relacionamentos.
         /// </summary>
@@ -61,40 +62,14 @@ namespace api_bookStore.App.DataBase
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<UserEntity>()
-            .HasIndex(u => u.Email)
-            .IsUnique();
-
-            modelBuilder.Entity<BookEntity>()
-                .HasOne(book => book.Author)
-                .WithMany(author => author.Books)
-                .HasForeignKey(book => book.AuthorId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            modelBuilder.Entity<BookEntity>()
-                .HasOne(book => book.Category)
-                .WithMany(category => category.Books)
-                .HasForeignKey(book => book.CategoryId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            modelBuilder.Entity<BookEntity>()
-                .HasOne(book => book.Quantity)
-                .WithOne(inventory => inventory.Book)
-                .HasForeignKey<BookEntity>(book => book.Id)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            modelBuilder.Entity<SaleXBookEntity>()
-            .HasKey(sb => sb.Id);
-
-            modelBuilder.Entity<SaleXBookEntity>()
-                .HasOne(sb => sb.Sale)
-                .WithMany(s => s.SaleXBooks)
-                .HasForeignKey(sb => sb.SaleId);
-
-            modelBuilder.Entity<SaleXBookEntity>()
-                .HasOne(sb => sb.Book)
-                .WithMany(b => b.SaleXBooks)
-                .HasForeignKey(sb => sb.BookId);
+            modelBuilder.ApplyConfiguration(new AuthMapping());
+            modelBuilder.ApplyConfiguration(new AuthorMapping());
+            modelBuilder.ApplyConfiguration(new BookMapping());
+            modelBuilder.ApplyConfiguration(new CategoryMapping());
+            modelBuilder.ApplyConfiguration(new InventoryMapping());
+            modelBuilder.ApplyConfiguration(new SaleBookMapping());
+            modelBuilder.ApplyConfiguration(new SaleMapping());
+            modelBuilder.ApplyConfiguration(new UserMapping());
         }
     }
 }

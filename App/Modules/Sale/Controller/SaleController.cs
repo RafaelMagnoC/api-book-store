@@ -42,11 +42,11 @@ namespace api_bookStore.App.Modules.Sale.Controller
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
         [HttpPost("sale")]
-        public async Task<ActionResult<SaleDTO>> SaleAdd(List<SaleViewModelCreate> saleViewModelCreate)
+        public async Task<ActionResult<List<SaleDTO>>> SaleAdd(List<SaleViewModelCreate> saleViewModelCreate)
         {
             try
             {
-                SaleDTO sale = await _saleRepository.SaleAdd(saleViewModelCreate);
+                List<SaleDTO> sale = await _saleRepository.SaleAdd(saleViewModelCreate);
 
                 return Ok(sale);
             }

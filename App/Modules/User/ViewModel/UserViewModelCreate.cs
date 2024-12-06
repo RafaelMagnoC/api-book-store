@@ -11,11 +11,11 @@ namespace api_bookStore.App.Modules.User.ViewModel
     public class UserViewModelCreate
     {
         [Required]
-        [StringLength(60)]
+        [StringLength(100)]
         public string Name { get; set; } = null!;
 
         [Required]
-        [StringLength(60)]
+        [StringLength(150)]
         [EmailAddress]
         public string Email { get; set; } = null!;
 

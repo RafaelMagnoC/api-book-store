@@ -37,23 +37,28 @@ namespace api_bookStore.App.Modules.Sale.Repository
         /// <exception cref="NotFound">Lançado quando um livro não é encontrado ou não há estoque suficiente.</exception>
         /// <exception cref="AvailableQuantity">Lançado quando um livro não tem saldo suficiente para a venda.</exception>
         /// <exception cref="CreateException">Lançado quando ocorre um erro ao registrar a venda.</exception>
-        public async Task<SaleDTO> SaleAdd(List<SaleViewModelCreate> saleViewModelCreate)
+        public async Task<List<SaleDTO>> SaleAdd(List<SaleViewModelCreate> saleViewModelCreate)
         {
             try
             {
 
-                await CheckBookStock(saleViewModelCreate.Select(book => book.BookId).ToList(), saleViewModelCreate);
+                await CheckBookStock(saleViewModelCreate.Select(sale => sale.BookId).ToList(), saleViewModelCreate);
+
+                List<int> bookIds = saleViewModelCreate.Select(sale => sale.BookId).ToList();
 
                 EntityEntry<SaleEntity> saleCreated = await _bookStoreContext.Sale.AddAsync(new SaleEntity());
-                int saleSaved = await _bookStoreContext.SaveChangesAsync();
 
-                List<SaleXBookEntity> saleBook = saleViewModelCreate.Select(product => new SaleXBookEntity(product.BookId, saleCreated.Entity.Id)).ToList();
-                await _bookStoreContext.AddRangeAsync(saleBook);
+                await _bookStoreContext.SaveChangesAsync();
+
+                List<SaleBookEntity> saleBook = saleViewModelCreate.Select(product => new SaleBookEntity(product.BookId, saleCreated.Entity.Id)).ToList();
+
+                await _bookStoreContext.SaleBook.AddRangeAsync(saleBook);
+
                 int saleBookSaved = await _bookStoreContext.SaveChangesAsync();
 
                 await ReduceBookStock(saleViewModelCreate);
 
-                return saleSaved > 0 && saleBookSaved > 0 ? _mapper.Map<SaleDTO>(saleCreated.Entity) : throw new CreateException("Um erro ocorreu ao registrar a venda.");
+                return saleBookSaved > 0 ? _mapper.Map<List<SaleDTO>>(saleCreated.Entity) : throw new CreateException("Um erro ocorreu ao registrar a venda.");
             }
             catch (Exception exception)
             {
@@ -77,7 +82,7 @@ namespace api_bookStore.App.Modules.Sale.Repository
                 var books = await _bookStoreContext.Book
                     .AsNoTracking()
                     .Where(book => bookIds.Contains(book.Id))
-                    .Include(inventory => inventory.Quantity)
+                    .Include(book => book.Inventory)
                     .ToListAsync();
 
                 if (books.Count != saleViewModelCreate.Count)
@@ -89,7 +94,7 @@ namespace api_bookStore.App.Modules.Sale.Repository
                 {
                     var book = books.FirstOrDefault(b => b.Id == sale.BookId) ?? throw new NotFound($"Livro com ID {sale.BookId} não encontrado.");
 
-                    book.Quantity.Quantity -= sale.Quantity;
+                    book.Inventory.Quantity -= sale.Quantity;
                 }
 
                 _bookStoreContext.Book.UpdateRange(books);
@@ -117,7 +122,7 @@ namespace api_bookStore.App.Modules.Sale.Repository
                 List<BookEntity> books = await _bookStoreContext.Book
                 .AsNoTracking()
                 .Where(book => bookIds.Contains(book.Id))
-                .Include(inventory => inventory.Quantity)
+                .Include(book => book.Inventory)
                 .ToListAsync();
 
                 List<int> foundBookIds = books.Select(b => b.Id).ToList();
@@ -153,12 +158,12 @@ namespace api_bookStore.App.Modules.Sale.Repository
                 {
                     var book = books.FirstOrDefault(b => b.Id == sale.BookId) ?? throw new NotFound($"Livro com ID {sale.BookId} não encontrado.");
 
-                    if (book.Quantity.Quantity <= 0)
+                    if (book.Inventory.Quantity <= 0)
                     {
                         throw new AvailableQuantity($"O livro {book.Title} não possui saldo!");
                     }
 
-                    if (book.Quantity.Quantity < sale.Quantity)
+                    if (book.Inventory.Quantity < sale.Quantity)
                     {
                         throw new AvailableQuantity($"O livro {book.Title} não possui saldo!");
                     }
@@ -180,8 +185,13 @@ namespace api_bookStore.App.Modules.Sale.Repository
         {
             try
             {
-                List<SaleDTO> sales = _mapper.Map<List<SaleDTO>>(await _bookStoreContext.Sale.AsNoTracking().ToListAsync());
-                return sales.Count > 0 ? sales : [];
+                List<SaleEntity> sales = await _bookStoreContext.Sale
+                .AsNoTracking()
+                .Include(sale => sale.SaleBook)
+                .ThenInclude(sale => sale.Book)
+                .ToListAsync();
+
+                return sales.Count > 0 ? _mapper.Map<List<SaleDTO>>(sales) : [];
             }
             catch (Exception exception)
             {
