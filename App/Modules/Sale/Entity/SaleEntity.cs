@@ -10,20 +10,34 @@ using api_bookStore.App.Modules.Sale.ViewModel;
 
 namespace api_bookStore.App.Modules.Sale.Entity
 {
+
     public class SaleEntity
     {
+        #region Propriedades
+
         public int Id { get; set; }
-        public double Price { get; set; }
-        public int Quantity { get; set; }
+        public double TotalValue { get; set; }
+        public int TotalQuantity { get; set; }
         public SaleStatusEnum Status { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
+
+        #endregion
+
+        #region Relacionamento | Navegação
+
         public IList<SaleBookEntity> SaleBook { get; set; } = [];
-        public SaleEntity() { }
-        public SaleEntity(SaleViewModelCreate saleViewModelCreate)
+
+        #endregion
+
+        #region Construtores
+
+        public SaleEntity()
         {
             Status = SaleStatusEnum.closed;
         }
+
+        #endregion
 
     }
 }

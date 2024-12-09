@@ -10,5 +10,6 @@ namespace api_bookStore.App.Modules.Sale.ViewModel
     {
         public int BookId { get; set; } = bookId;
         public int Quantity { get; set; } = quantity;
+
     }
 }

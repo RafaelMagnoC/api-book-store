@@ -25,14 +25,14 @@ namespace api_bookStore.App.infrastructure.mapping
             .IsRequired();
 
             builder
-            .Property(sale => sale.Price)
-            .HasColumnName("sale_price")
+            .Property(sale => sale.TotalValue)
+            .HasColumnName("sale_total_value")
             .HasPrecision(10, 2)
             .IsRequired();
 
             builder
-            .Property(sale => sale.Quantity)
-            .HasColumnName("sale_quantity")
+            .Property(sale => sale.TotalQuantity)
+            .HasColumnName("sale_total_quantity")
             .IsRequired();
 
             builder
@@ -51,11 +51,6 @@ namespace api_bookStore.App.infrastructure.mapping
             .Property(sale => sale.UpdatedAt)
             .HasColumnName("sale_updated_at")
             .HasColumnType("datetime");
-
-            builder
-            .HasMany(sale => sale.SaleBook)
-            .WithOne(saleBook => saleBook.Sale)
-            .HasForeignKey(sale => sale.Id);
         }
     }
 }

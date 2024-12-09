@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using api_bookStore.App.Modules.Sale.DTO;
+using api_bookStore.App.Modules.Sale.Entity;
 using api_bookStore.App.Modules.Sale.Interface;
 using api_bookStore.App.Modules.Sale.ViewModel;
 using api_BookStore.App.Exceptions;
@@ -42,11 +43,11 @@ namespace api_bookStore.App.Modules.Sale.Controller
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
         [HttpPost("sale")]
-        public async Task<ActionResult<List<SaleDTO>>> SaleAdd(List<SaleViewModelCreate> saleViewModelCreate)
+        public async Task<ActionResult<SaleDTO>> SaleAdd(List<SaleViewModelCreate> saleViewModelCreate)
         {
             try
             {
-                List<SaleDTO> sale = await _saleRepository.SaleAdd(saleViewModelCreate);
+                SaleDTO sale = await _saleRepository.SaleAdd(saleViewModelCreate);
 
                 return Ok(sale);
             }

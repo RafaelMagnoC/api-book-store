@@ -71,11 +71,6 @@ namespace api_bookStore.App.infrastructure.mapping
             .WithMany(category => category.Books)
             .HasForeignKey(book => book.CategoryId)
             .OnDelete(DeleteBehavior.Restrict);
-
-            builder
-            .HasMany(book => book.SaleBook)
-            .WithOne(saleBook => saleBook.Book)
-            .HasForeignKey(book => book.BookId);
         }
     }
 }
