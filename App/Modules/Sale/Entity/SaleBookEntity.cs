@@ -7,11 +7,9 @@ namespace api_bookStore.App.Modules.Sale.Entity
     public class SaleBookEntity
     {
         #region Propriedades
-
-        public int Id { get; set; }
         public int Quantity { get; set; }
         public double Price { get; set; }
-        public double SubTotal { get; set; }
+        public double Subtotal { get; set; }
 
         #endregion
 
@@ -27,10 +25,13 @@ namespace api_bookStore.App.Modules.Sale.Entity
         #region construtores
 
         public SaleBookEntity() { }
-        public SaleBookEntity(int bookId, int saleId)
+        public SaleBookEntity(int bookId, int saleId, double price, int quantity)
         {
             BookId = bookId;
             SaleId = saleId;
+            Price = price;
+            Quantity = quantity;
+            Subtotal = Price * Quantity;
         }
 
         #endregion

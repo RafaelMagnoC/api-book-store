@@ -48,7 +48,7 @@ namespace api_bookStore.App.infrastructure.mapping
             .Property(inventory => inventory.CreatedAt)
             .HasColumnName("inventory_created_at")
             .HasColumnType("datetime")
-            .HasDefaultValue(DateTime.Now.ToString());
+            .HasDefaultValue(DateTime.Now);
 
             builder
             .Property(inventory => inventory.UpdatedAt)

@@ -37,11 +37,6 @@ namespace api_bookStore.App.Services.AutoMapper
             CreateMap<InventoryEntity, InventoryDTO>().ReverseMap();
 
             CreateMap<SaleEntity, SaleDTO>()
-            .ForMember(dto => dto.SaleBook, entity => entity.MapFrom(property => property.SaleBook.Select(saleBook => new SaleBookDTO
-            {
-                BookTitle = saleBook.Book.Title,
-                Price = saleBook.Book.Price
-            })))
             .ReverseMap();
 
             CreateMap<BookEntity, BookDTO>()
@@ -50,7 +45,11 @@ namespace api_bookStore.App.Services.AutoMapper
             .ForMember(dto => dto.Author, entity => entity.MapFrom(property => property.Author.Name))
             .ReverseMap();
 
-            CreateMap<SaleBookEntity, SaleBookDTO>();
+            CreateMap<SaleBookEntity, SaleBookDTO>()
+            .ForMember(dto => dto.BookTitle, entity => entity.MapFrom(property => property.Book.Title))
+            .ForMember(dto => dto.Price, entity => entity.MapFrom(property => property.Price))
+            .ForMember(dto => dto.Quantity, entity => entity.MapFrom(property => property.Quantity))
+            .ForMember(dto => dto.Subtotal, entity => entity.MapFrom(property => property.Subtotal));
         }
     }
 }

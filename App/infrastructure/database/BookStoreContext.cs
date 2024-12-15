@@ -70,6 +70,8 @@ namespace api_bookStore.App.DataBase
             modelBuilder.ApplyConfiguration(new SaleBookMapping());
             modelBuilder.ApplyConfiguration(new SaleMapping());
             modelBuilder.ApplyConfiguration(new UserMapping());
+
+            
         }
     }
 }

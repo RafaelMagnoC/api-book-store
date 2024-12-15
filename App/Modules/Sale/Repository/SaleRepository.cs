@@ -50,9 +50,10 @@ namespace api_bookStore.App.Modules.Sale.Repository
 
                 int saleSaved = await _bookStoreContext.SaveChangesAsync();
 
-                //terminar lógica para melhorar criação e resposta pro usuário
-
-                List<SaleBookEntity> saleBookEntities = books.Select(book => new SaleBookEntity(book.Id, saleCreated.Entity.Id) { Price = book.Price, Quantity = }).ToList();
+                List<SaleBookEntity> saleBookEntities = saleViewModelCreate
+                .Select(sale =>
+                    new SaleBookEntity(sale.BookId, saleCreated.Entity.Id, books.FirstOrDefault(book => book.Id == sale.BookId)!.Price, sale.Quantity))
+                .ToList();
 
                 await _bookStoreContext.SaleBook.AddRangeAsync(saleBookEntities);
 
@@ -60,7 +61,24 @@ namespace api_bookStore.App.Modules.Sale.Repository
 
                 await ReduceBookStock(saleViewModelCreate);
 
+                CalculeTotalSale(saleCreated.Entity, saleBookEntities);
+
                 return saleBookSaved > 0 ? _mapper.Map<SaleDTO>(saleCreated.Entity) : throw new CreateException("Um erro ocorreu ao registrar a venda.");
+            }
+            catch (Exception exception)
+            {
+                throw new Exception(exception.Message);
+            }
+        }
+
+        public async void CalculeTotalSale(SaleEntity sale, List<SaleBookEntity> saleBookList)
+        {
+            try
+            {
+                sale.TotalQuantity = saleBookList.Sum(sale => sale.Quantity);
+                sale.TotalValue = saleBookList.Sum(sale => sale.Subtotal);
+                _bookStoreContext.Update(sale);
+                int saleUpdated = await _bookStoreContext.SaveChangesAsync();
             }
             catch (Exception exception)
             {
@@ -79,11 +97,9 @@ namespace api_bookStore.App.Modules.Sale.Repository
         {
             try
             {
-                List<int> bookIds = saleViewModelCreate.Select(book => book.BookId).ToList();
 
-                var books = await _bookStoreContext.Book
-                    .AsNoTracking()
-                    .Where(book => bookIds.Contains(book.Id))
+                List<BookEntity> books = await _bookStoreContext.Book
+                    .Where(book => saleViewModelCreate.Select(sale => sale.BookId).Contains(book.Id))
                     .Include(book => book.Inventory)
                     .ToListAsync();
 

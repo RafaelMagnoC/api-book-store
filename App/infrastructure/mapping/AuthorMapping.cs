@@ -50,7 +50,7 @@ namespace api_bookStore.App.infrastructure.mapping
             .Property(author => author.CreatedAt)
             .HasColumnName("author_created_at")
             .HasColumnType("datetime")
-            .HasDefaultValue(DateTime.Now.ToString());
+            .HasDefaultValue(DateTime.Now);
 
             builder
             .Property(author => author.UpdatedAt)

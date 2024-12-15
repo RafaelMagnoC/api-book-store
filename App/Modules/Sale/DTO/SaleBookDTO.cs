@@ -10,6 +10,7 @@ namespace api_bookStore.App.Modules.Sale.DTO
         public string BookTitle { get; set; } = null!;
         public int Quantity { get; set; }
         public double Price { get; set; }
+        public double Subtotal { get; set; }
 
     }
 }

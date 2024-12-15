@@ -26,12 +26,27 @@ namespace api_bookStore.App.Modules.Sale.Controller
         /// Exemplo:
         ///
         ///     POST /sale
-        ///     [
-        ///         {
-        ///             "bookId": 1,
-        ///             "quantity: 3
-        ///         }
-        ///     ]
+        ///     {
+        ///         "id": 1,
+        ///         "totalValue": 175,
+        ///         "totalQuantity": 15,
+        ///         "status": 4,
+        ///         "saleBook": 
+        ///         [
+        ///             {
+        ///                 "bookTitle": "string",
+        ///                 "quantity": 5,
+        ///                 "price": 15,
+        ///                 "subtotal": 75
+        ///             },
+        ///             {
+        ///                 "bookTitle": "string 2",
+        ///                 "quantity": 10,
+        ///                 "price": 10,
+        ///                 "subtotal": 100
+        ///             }
+        ///         ]
+        ///     }
         ///
         /// </remarks>
         /// <param name="saleViewModelCreate">Os ids dos livros e quantidades que serão comprados pelo cliente.</param>
@@ -71,18 +86,45 @@ namespace api_bookStore.App.Modules.Sale.Controller
         ///  <remarks>
         /// Exemplo:
         ///
-        ///     GET /categories
+        ///     GET /sales
         ///     [
         ///         {
-        ///             "id": 1
+        ///             "id": 1,
+        ///             "totalValue": 175,
+        ///             "totalQuantity": 15,
+        ///             "status": 4,
+        ///             "saleBook": 
+        ///             [
+        ///                 {
+        ///                     "bookTitle": "string",
+        ///                     "quantity": 5,
+        ///                     "price": 15,
+        ///                     "subtotal": 75
+        ///                 },
+        ///                 {
+        ///                     "bookTitle": "string 2",
+        ///                     "quantity": 10,
+        ///                     "price": 10,
+        ///                     "subtotal": 100
+        ///                 }
+        ///             ]
         ///         },
         ///         {
-        ///             "id": 2
-        ///         },
-        ///         {
-        ///             "id": 3
-        ///         },
-        ///     ]
+        ///             "id": 2,
+        ///             "totalValue": 750,
+        ///             "totalQuantity": 50,
+        ///             "status": 4,
+        ///             "saleBook": 
+        ///             [
+        ///                 {
+        ///                     "bookTitle": "string",
+        ///                     "quantity": 50,
+        ///                     "price": 15,
+        ///                     "subtotal": 750
+        ///                 }
+        ///             ]
+        ///          }
+        ///    ]
         ///
         /// </remarks>
         /// <returns>Lista de vendas registradas.</returns>

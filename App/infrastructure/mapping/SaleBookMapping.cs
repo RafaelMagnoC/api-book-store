@@ -19,10 +19,6 @@ namespace api_bookStore.App.infrastructure.mapping
             .HasKey(saleBook => new { saleBook.SaleId, saleBook.BookId });
 
             builder
-            .Property(saleBook => saleBook.Id)
-            .HasColumnName("sb_id");
-
-            builder
             .Property(salebook => salebook.Price)
             .HasColumnName("sb_price");
 
@@ -31,7 +27,7 @@ namespace api_bookStore.App.infrastructure.mapping
             .HasColumnName("sb_quantity");
 
             builder
-            .Property(saleBook => saleBook.SubTotal)
+            .Property(saleBook => saleBook.Subtotal)
             .HasColumnName("sb_subtotal");
 
             builder
@@ -53,7 +49,6 @@ namespace api_bookStore.App.infrastructure.mapping
             .HasOne(salebook => salebook.Sale)
             .WithMany(sale => sale.SaleBook)
             .HasForeignKey(salebook => salebook.SaleId);
-
         }
     }
 }

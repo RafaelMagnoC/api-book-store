@@ -12,8 +12,8 @@ namespace api_bookStore.App.Modules.Sale.DTO
     public class SaleDTO
     {
         public int Id { get; set; }
-        public double Price { get; set; }
-        public int Quantity { get; set; }
+        public double TotalValue { get; set; }
+        public int TotalQuantity { get; set; }
         public SaleStatusEnum Status { get; set; }
         public IList<SaleBookDTO> SaleBook { get; set; } = null!;
     }
